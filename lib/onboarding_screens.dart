@@ -52,16 +52,16 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    double screenHeight = MediaQuery.of(context).size.height;
+    Size screenSize = MediaQuery.sizeOf(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
             Image.asset('assets/images/header.png'),
-            SizedBox(height: screenHeight * .05),
+            SizedBox(height: screenSize.height * .05),
             Expanded(
               child: PageView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: ScrollPhysics(),
                 controller: pageController,
                 itemCount: boardingData.length,
                 onPageChanged: (index) {
@@ -79,18 +79,18 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                           item['image']!,
                           fit: BoxFit.cover,
                           width: double.infinity,
-                          height: screenHeight * .4,
+                          height: screenSize.height * .4,
                         ),
                         item['description'] == ''
-                            ? SizedBox(height: screenHeight * .11)
-                            : SizedBox(height: screenHeight * .04),
+                            ? SizedBox(height: screenSize.height * .11)
+                            : SizedBox(height: screenSize.height * .04),
                         Text(
                           item['title']!,
                           style: textTheme.headlineSmall!.copyWith(
                             color: AppTheme.primary,
                           ),
                         ),
-                        SizedBox(height: screenHeight * .05),
+                        SizedBox(height: screenSize.height * .05),
                         Text(
                           item['description']!,
                           textAlign: TextAlign.center,
@@ -120,7 +120,7 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                             ),
                           ),
                         )
-                      : SizedBox.shrink(),
+                      : SizedBox(width: screenSize.width * .15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(
